@@ -44,11 +44,12 @@
                                     if (cell && cell.v.toLowerCase() === searchQuery) {
                                         const result = `ProviderOne ID was found.`;
                                         document.getElementById('searchResults').innerHTML = `<p>${result}</p>`;
-                                        alert('Done!');
+                                        bFound = true;
                                         break;
                                     }
                                 }
                                 if (bFound) {
+                                    alert('Done!');
                                     break;
                                 }
                             }
