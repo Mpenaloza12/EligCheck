@@ -4,17 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Excel File Search</title>
-    <!-- Include necessary CSS -->
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Add your CSS styles here */
+    </style>
 </head>
 <body>
-    <h1>Excel File Search</h1>
-    <input type="text" id="searchInput" placeholder="Enter keyword...">
+    <h1>Search Excel Files</h1>
+    <input type="text" id="searchInput" placeholder="Enter search query">
     <button onclick="search()">Search</button>
     <div id="searchResults"></div>
 
-    <!-- Include necessary JS libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.0/xlsx.full.min.js"></script>
-    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
+    <script>
+        function search() {
+            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            const binFolder = 'bin/';
+            const files = ['ORIGINAL_RECIP_IDs.xlsx', 'ORIGINAL_RECIP_IDs2.xlsx']; // Add your Excel file names here
+
+            files.forEach(file => {
+                fetch(binFolder + file)
+                    .then(response => response.arrayBuffer())
+                    .then(arrayBuffer => {
+                        const data = new Uint8Array(arrayBuffer);
+                        const workbook = XLSX.read(data, {type: 'array'});
+                        const sheetName = workbook.SheetNames[0];
+                        const worksheet = workbook.Sheets[sheetName];
+                        const range = XLSX.utils.decode_range(worksheet['!ref']);
+
+                        for (let rowNum = range.s.r; rowNum <= range.e.r; rowNum++) {
+                            for (let colNum = range.s.c; colNum <= range.e.c; colNum++) {
+                                const cellAddress = {r: rowNum, c: colNum};
+                                const cellRef = XLSX.utils.encode_cell(cellAddress);
+                                const cell = worksheet[cellRef];
+
+                                if (cell && cell.v.toLowerCase().includes(searchQuery)) {
+                                    const result = `Found in ${file}, Row: ${rowNum + 1}, Col: ${colNum + 1}, Value: ${cell.v}`;
+                                    document.getElementById('searchResults').innerHTML += `<p>${result}</p>`;
+                                }
+                            }
+                        }
+                    })
+                    .catch(error => console.error('Error reading file:', error));
+            });
+        }
+    </script>
 </body>
 </html>
