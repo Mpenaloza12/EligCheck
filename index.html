@@ -42,7 +42,7 @@
 
                                     if (cell && cell.v.toLowerCase() === searchQuery) {
                                         const result = `ProviderOne ID was found.`;
-                                        document.getElementById('searchResults').innerHTML += `<p>${result}</p>`;
+                                        document.getElementById('searchResults').innerHTML = `<p>${result}</p>`;
                                         break;
                                     }
                                 }
@@ -56,7 +56,7 @@
             }
             );
             if (!bFound) {
-                document.getElementById('searchResults').innerHTML += `<p>ProviderOne ID was <b>NOT</b> found!</p>`;
+                document.getElementById('searchResults').innerHTML = `<p style="color:red">ProviderOne ID was <b>NOT</b> found!</p>`;
             }
             alert('Done!');
         }
