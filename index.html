@@ -39,7 +39,7 @@
                                 const cellRef = XLSX.utils.encode_cell(cellAddress);
                                 const cell = worksheet[cellRef];
 
-                                if (cell && cell.v.toLowerCase().includes(searchQuery)) {
+                                if (cell && cell.v.toLowerCase() === searchQuery) {
                                     const result = `Found in ${file}, Row: ${rowNum + 1}, Col: ${colNum + 1}, Value: ${cell.v}`;
                                     document.getElementById('searchResults').innerHTML += `<p>${result}</p>`;
                                     break;
