@@ -45,6 +45,7 @@
                                         const result = `ProviderOne ID was found.`;
                                         document.getElementById('searchResults').innerHTML = `<p>${result}</p>`;
                                         break;
+                                        alert('Done!');
                                     }
                                 }
                                 if (bFound) {
@@ -59,7 +60,6 @@
             if (!bFound) {
                 document.getElementById('searchResults').innerHTML = `<p style="color:red">ProviderOne ID was <b>NOT</b> found!</p>`;
             }
-            alert('Done!');
         }
     </script>
 </body>
