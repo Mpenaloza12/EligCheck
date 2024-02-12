@@ -18,7 +18,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
     <script>
      function search() {
-            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+         document.getElementById('searchResults').innerHTML = '';
+         const searchQuery = document.getElementById('searchInput').value.toLowerCase();
             const binFolder = 'bin/';
             const files = ['ORIGINAL_RECIP_IDs.xlsx', 'ORIGINAL_RECIP_IDs2.xlsx']; // Add your Excel file names here
 
