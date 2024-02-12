@@ -40,7 +40,7 @@
                                 const cell = worksheet[cellRef];
 
                                 if (cell && cell.v.toLowerCase() === searchQuery) {
-                                    const result = `Found in ${file}, Row: ${rowNum + 1}, Col: ${colNum + 1}, Value: ${cell.v}`;
+                                    const result = `ProviderOne ID was found.`;
                                     document.getElementById('searchResults').innerHTML += `<p>${result}</p>`;
                                     break;
                                 }
@@ -55,6 +55,9 @@
                     })
                     .catch(error => console.error('Error reading file:', error));
             });
+            if (!bFound) {
+                document.getElementById('searchResults').innerHTML += `<p>ProviderOne ID was <b>NOT</b> found!</p>`;
+            }
         }
     </script>
 </body>
