@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,58 +10,82 @@
         /* Add your CSS styles here */
     </style>
 </head>
+
 <body>
     <h1>Search Excel Files</h1>
     <input type="text" id="searchInput" placeholder="Enter search query">
-    <button onclick="search()">Search</button>
+    <button onclick="binarySearchCSV('bin/data.csv', document.getElementById('searchInput').value.toLowerCase(), (err, result) => {
+        if (err) {
+            document.getElementById('searchResults').innerHTML = 'Error reading CSV file: ' + err;
+            return;
+        }
+
+        if (result) {
+            document.getElementById('searchResults').innerHTML = 'Value found: ' + result;
+        } else {
+            document.getElementById('searchResults').innerHTML = 'Value not found';
+        }
+});">Search</button>
     <div id="searchResults"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
     <script>
-     function search() {
-         document.getElementById('searchResults').innerHTML = '';
-         const searchQuery = document.getElementById('searchInput').value.toLowerCase();
-            const binFolder = 'bin/';
-            const files = ['data.csv']; // Add your Excel file names here
 
-            var bFound = false;
+        const fs = require('fs');
 
-            files.forEach(file => {
-                if (!bFound) {
-                    fetch(binFolder + file)
-                        .then(response => response.arrayBuffer())
-                        .then(arrayBuffer => {
-                            const data = new Uint8Array(arrayBuffer);
-                            const workbook = XLSX.read(data, { type: 'array' });
-                            const sheetName = workbook.SheetNames[0];
-                            const worksheet = workbook.Sheets[sheetName];
-                            const range = XLSX.utils.decode_range(worksheet['!ref']);
-                            for (let rowNum = range.s.r; rowNum <= range.e.r; rowNum++) {
-                                for (let colNum = range.s.c; colNum <= range.e.c; colNum++) {
-                                    const cellAddress = { r: rowNum, c: colNum };
-                                    const cellRef = XLSX.utils.encode_cell(cellAddress);
-                                    const cell = worksheet[cellRef];
+        // Function to perform binary search in a sorted CSV file
+        function binarySearchCSV(filename, searchValue, callback) {
+            let left = 0;
+            let right = 0;
+            let found = false;
 
-                                    if (cell && cell.v.toLowerCase() === searchQuery) {
-                                        const result = `ProviderOne ID was found.`;
-                                        document.getElementById('searchResults').innerHTML = `<p>${result}</p>`;
-                                        break;
-                                    }
-                                }
-                                if (bFound) {
-                                    break;
-                                }
-                            }
-                        })
-                        .catch(error => console.error('Error reading file:', error));
+            // Open the CSV file for reading
+            const stream = fs.createReadStream(filename, { encoding: 'utf8' });
+
+            stream.on('data', (chunk) => {
+                const lines = chunk.split('\n');
+
+                // If the right index is not set yet, set it to the end of the CSV file
+                if (right === 0) {
+                    right = lines.length - 1;
                 }
-            }
-            );
-            if (!bFound) {
-                document.getElementById('searchResults').innerHTML = `<p style="color:red">ProviderOne ID was <b>NOT</b> found!</p>`;
-            }
-            alert('Done!');
+
+                // Binary search
+                while (left <= right) {
+                    const mid = Math.floor((left + right) / 2);
+                    const currentLine = lines[mid].split(',');
+
+                    const id = parseInt(currentLine[0]); // Assuming the id is the first column
+
+                    if (id === searchValue) {
+                        found = true;
+                        callback(null, currentLine);
+                        break;
+                    } else if (id < searchValue) {
+                        left = mid + 1;
+                    } else {
+                        right = mid - 1;
+                    }
+                }
+
+                // Close the stream if the value is found or reached the end of the file
+                if (found || left > right) {
+                    stream.close();
+                }
+            });
+
+            stream.on('error', (err) => {
+                callback(err, null);
+            });
+
+            stream.on('end', () => {
+                if (!found) {
+                    callback(null, null); // Value not found
+                }
+            });
         }
+
     </script>
 </body>
+
 </html>
