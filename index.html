@@ -14,7 +14,13 @@
 <body>
     <h1>Search Excel Files</h1>
     <input type="text" id="searchInput" placeholder="Enter search query">
-    <button onclick="binarySearchCSV('bin/data.csv', document.getElementById('searchInput').value.toLowerCase(), (err, result) => {
+    <button onclick="search();">Search</button>
+    <div id="searchResults"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
+    <script>
+function search(){
+    binarySearchCSV('bin/data.csv', document.getElementById('searchInput').value.toLowerCase(), (err, result) => {
         if (err) {
             document.getElementById('searchResults').innerHTML = 'Error reading CSV file: ' + err;
             return;
@@ -25,12 +31,10 @@
         } else {
             document.getElementById('searchResults').innerHTML = 'Value not found';
         }
-});">Search</button>
-    <div id="searchResults"></div>
+});
+}
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
-    <script>
-
+        
         const fs = require('fs');
 
         // Function to perform binary search in a sorted CSV file
