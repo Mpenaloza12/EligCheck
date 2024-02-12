@@ -24,6 +24,7 @@
             const searchQuery = document.getElementById('searchInput').value.toLowerCase();
             const binFolder = 'bin/';
             const files = ['data.csv']; // Add your Excel file names here
+            alert('Search In Progress!');
 
             var bFound = false;
 
@@ -54,9 +55,11 @@
                                     alert('Done!');
                                     break;
                                 } else {
+                                    alert('Done!');
                                     document.getElementById('searchResults').innerHTML = `<p style="color:red">ProviderOne ID was <b>NOT</b> found!</p>`;
                                 }
-                            })
+                            }
+                        })
                         .catch(error => console.error('Error reading file:', error));
                 }
             }
