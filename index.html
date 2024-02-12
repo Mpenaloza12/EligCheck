@@ -19,6 +19,7 @@
     <script>
      function search() {
          document.getElementById('searchResults').innerHTML = '';
+         alert('Search In Progress!');
          const searchQuery = document.getElementById('searchInput').value.toLowerCase();
             const binFolder = 'bin/';
             const files = ['data.csv']; // Add your Excel file names here
@@ -51,16 +52,14 @@
                                 if (bFound) {
                                     alert('Done!');
                                     break;
+                                } else{
+                                    document.getElementById('searchResults').innerHTML = `<p style="color:red">ProviderOne ID was <b>NOT</b> found!</p>`;
                                 }
-                            }
                         })
                         .catch(error => console.error('Error reading file:', error));
                 }
             }
             );
-            if (!bFound) {
-                document.getElementById('searchResults').innerHTML = `<p style="color:red">ProviderOne ID was <b>NOT</b> found!</p>`;
-            }
         }
     </script>
 </body>
