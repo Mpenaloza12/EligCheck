@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
         /* Add your CSS styles here */
     </style>
 </head>
+
 <body>
     <h1>Search Excel Files</h1>
     <input type="text" id="searchInput" placeholder="Enter search query">
@@ -17,10 +19,10 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
     <script>
-     function search() {
-         document.getElementById('searchResults').innerHTML = '';
-         alert('Search In Progress!');
-         const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+        function search() {
+            document.getElementById('searchResults').innerHTML = '';
+            alert('Search In Progress!');
+            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
             const binFolder = 'bin/';
             const files = ['data.csv']; // Add your Excel file names here
 
@@ -52,10 +54,10 @@
                                 if (bFound) {
                                     alert('Done!');
                                     break;
-                                } else{
+                                } else {
                                     document.getElementById('searchResults').innerHTML = `<p style="color:red">ProviderOne ID was <b>NOT</b> found!</p>`;
                                 }
-                        })
+                            })
                         .catch(error => console.error('Error reading file:', error));
                 }
             }
@@ -63,4 +65,5 @@
         }
     </script>
 </body>
+
 </html>
