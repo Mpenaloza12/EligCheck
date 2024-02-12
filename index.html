@@ -47,14 +47,15 @@
                                 if (cell && cell.v.toLowerCase() === searchQuery) {
                                     const result = `ProviderOne ID was found.`;
                                     displayResult(result);
-                                    matchFound = true;
+                                    bFound = true;
+                                    break;
                                 }
                             }
                         }
                     })
                     .catch(error => console.error('Error reading file:', error))
                     .finally(() => {
-                        if (!matchFound) {
+                        if (!bFound) {
                             displayNoMatch();
                         }
                     });
@@ -64,10 +65,12 @@
         function displayResult(result) {
             const match = `<p>${result}</p>`;
             resultsContainer.innerHTML += match;
+            alert('Done!');
         }
 
         function displayNoMatch() {
             resultsContainer.innerHTML = 'ProviderOne ID was found.';
+            alert('Done!');
         }
     </script>
 </body>
