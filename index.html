@@ -17,7 +17,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
     <script>
-        function search() {
+     function search() {
             const searchQuery = document.getElementById('searchInput').value.toLowerCase();
             const binFolder = 'bin/';
             const files = ['ORIGINAL_RECIP_IDs.xlsx', 'ORIGINAL_RECIP_IDs2.xlsx']; // Add your Excel file names here
@@ -25,37 +25,37 @@
             var bFound = false;
 
             files.forEach(file => {
-                fetch(binFolder + file)
-                    .then(response => response.arrayBuffer())
-                    .then(arrayBuffer => {
-                        const data = new Uint8Array(arrayBuffer);
-                        const workbook = XLSX.read(data, {type: 'array'});
-                        const sheetName = workbook.SheetNames[0];
-                        const worksheet = workbook.Sheets[sheetName];
-                        const range = XLSX.utils.decode_range(worksheet['!ref']);
-                        for (let rowNum = range.s.r; rowNum <= range.e.r; rowNum++) {
-                            for (let colNum = range.s.c; colNum <= range.e.c; colNum++) {
-                                const cellAddress = {r: rowNum, c: colNum};
-                                const cellRef = XLSX.utils.encode_cell(cellAddress);
-                                const cell = worksheet[cellRef];
+                if (!bFound) {
+                    fetch(binFolder + file)
+                        .then(response => response.arrayBuffer())
+                        .then(arrayBuffer => {
+                            const data = new Uint8Array(arrayBuffer);
+                            const workbook = XLSX.read(data, { type: 'array' });
+                            const sheetName = workbook.SheetNames[0];
+                            const worksheet = workbook.Sheets[sheetName];
+                            const range = XLSX.utils.decode_range(worksheet['!ref']);
+                            for (let rowNum = range.s.r; rowNum <= range.e.r; rowNum++) {
+                                for (let colNum = range.s.c; colNum <= range.e.c; colNum++) {
+                                    const cellAddress = { r: rowNum, c: colNum };
+                                    const cellRef = XLSX.utils.encode_cell(cellAddress);
+                                    const cell = worksheet[cellRef];
 
-                                if (cell && cell.v.toLowerCase() === searchQuery) {
-                                    const result = `ProviderOne ID was found.`;
-                                    document.getElementById('searchResults').innerHTML += `<p>${result}</p>`;
+                                    if (cell && cell.v.toLowerCase() === searchQuery) {
+                                        const result = `ProviderOne ID was found.`;
+                                        document.getElementById('searchResults').innerHTML += `<p>${result}</p>`;
+                                        break;
+                                    }
+                                }
+                                if (bFound) {
                                     break;
                                 }
                             }
-                            if (bFound) {
-                                break;
-                            }
-                        }
-                        if (bFound) {
-                            break;
-                        }
-                    })
-                    .catch(error => console.error('Error reading file:', error));
-            });
-            if (bFound === false) {
+                        })
+                        .catch(error => console.error('Error reading file:', error));
+                }
+            }
+            );
+            if (!bFound) {
                 document.getElementById('searchResults').innerHTML += `<p>ProviderOne ID was <b>NOT</b> found!</p>`;
             }
             alert('Done!');
