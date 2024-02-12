@@ -22,6 +22,8 @@
             const binFolder = 'bin/';
             const files = ['ORIGINAL_RECIP_IDs.xlsx', 'ORIGINAL_RECIP_IDs2.xlsx']; // Add your Excel file names here
 
+            var bFound = false;
+
             files.forEach(file => {
                 fetch(binFolder + file)
                     .then(response => response.arrayBuffer())
@@ -31,7 +33,6 @@
                         const sheetName = workbook.SheetNames[0];
                         const worksheet = workbook.Sheets[sheetName];
                         const range = XLSX.utils.decode_range(worksheet['!ref']);
-
                         for (let rowNum = range.s.r; rowNum <= range.e.r; rowNum++) {
                             for (let colNum = range.s.c; colNum <= range.e.c; colNum++) {
                                 const cellAddress = {r: rowNum, c: colNum};
@@ -41,8 +42,15 @@
                                 if (cell && cell.v.toLowerCase().includes(searchQuery)) {
                                     const result = `Found in ${file}, Row: ${rowNum + 1}, Col: ${colNum + 1}, Value: ${cell.v}`;
                                     document.getElementById('searchResults').innerHTML += `<p>${result}</p>`;
+                                    break;
                                 }
                             }
+                            if (bFound) {
+                                break;
+                            }
+                        }
+                        if (bFound) {
+                            break;
                         }
                     })
                     .catch(error => console.error('Error reading file:', error));
