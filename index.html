@@ -54,9 +54,6 @@
                                 if (bFound) {
                                     alert('Done!');
                                     break;
-                                } else {
-                                    alert('Done!');
-                                    document.getElementById('searchResults').innerHTML = `<p style="color:red">ProviderOne ID was <b>NOT</b> found!</p>`;
                                 }
                             }
                         })
@@ -64,6 +61,10 @@
                 }
             }
             );
+            if (bFound) {
+                alert('Done!');
+                document.getElementById('searchResults').innerHTML = `<p style="color:red">ProviderOne ID was <b>NOT</b> found!</p>`;
+            }
         }
     </script>
 </body>
