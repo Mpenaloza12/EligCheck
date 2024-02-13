@@ -63,14 +63,14 @@
         }
 
         function displayResult(result) {
+            const resultsContainer = document.getElementById('searchResults');
             const match = `<p>${result}</p>`;
             resultsContainer.innerHTML += match;
-            alert('Done!');
         }
 
         function displayNoMatch() {
-            resultsContainer.innerHTML = 'ProviderOne ID was found.';
-            alert('Done!');
+            const resultsContainer = document.getElementById('searchResults');
+            resultsContainer.innerHTML = 'No exact matches found.';
         }
     </script>
 </body>
