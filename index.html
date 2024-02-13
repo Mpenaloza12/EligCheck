@@ -24,7 +24,7 @@
             const searchQuery = document.getElementById('searchInput').value.toLowerCase();
             const binFolder = 'bin/';
             const files = ['data.csv']; // Add your Excel file names here
-            document.getElementById('searchInput').style.display = "block";
+            document.getElementById('inProgress').style.display = "block";
 
             var bFound = false;
 
@@ -66,13 +66,13 @@
             const resultsContainer = document.getElementById('searchResults');
             const match = `<p style='color: green'>${result}</p>`;
             resultsContainer.innerHTML += match;
-            document.getElementById('searchInput').style.display = "none";
+            document.getElementById('inProgress').style.display = "none";
         }
 
         function displayNoMatch() {
             const resultsContainer = document.getElementById('searchResults');
             resultsContainer.innerHTML = '<p style='color: red'>ProviderOne ID was <b>NOT</b> found.</p>';
-            document.getElementById('searchInput').style.display = "none";
+            document.getElementById('inProgress').style.display = "none";
         }
     </script>
 </body>
