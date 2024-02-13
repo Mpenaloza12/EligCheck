@@ -69,7 +69,7 @@
 
         function displayResult(result) {
             const resultsContainer = document.getElementById('searchResults');
-            const match = `<p style='color: green'>${result}</p>`;
+            const match = `<p style='color: green'>${result}</p><p>This response only signifies that the ProviderOne ID you provided appears in PFP's database of eligible HCA clients. This response does <b>NOT</b> guarantee a client's eligibility for a particular service, nor does it guarantee payment from PFP for the after-hours trip.</p>`;
             resultsContainer.innerHTML += match;
             document.getElementById('inProgress').style.display = 'none';
         }
