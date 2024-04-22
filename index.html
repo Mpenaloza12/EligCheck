@@ -27,7 +27,7 @@
             if (searchQuery != ''){
                 const binFolder = 'bin/';
                 const files = ['data.csv']; // Add your Excel file names here
-    
+                searchQuery = searchQuery.replace('wa','');
                 var bFound = false;
     
                 files.forEach(file => {
@@ -40,46 +40,13 @@
                             const worksheet = workbook.Sheets[sheetName];
                             const range = XLSX.utils.decode_range(worksheet['!ref']);
 
-                            /*
-                            for (let rowNum = range.s.r; rowNum <= range.e.r; rowNum++) {
-                                const cellAddressFirstCol = { r: rowNum, c: 0 }; // Assuming first column is index 0
-                                const cellRefFirstCol = XLSX.utils.encode_cell(cellAddressFirstCol);
-                                const cellFirstCol = worksheet[cellRefFirstCol];
-                                if (cellFirstCol && cellFirstCol.v.toLowerCase() === searchQuery) {
-                                    // Match found, get data from the second column of the matched row
-                                    const cellAddressSecondCol = { r: rowNum, c: 1 }; // Assuming second column is index 1
-                                    const cellRefSecondCol = XLSX.utils.encode_cell(cellAddressSecondCol);
-                                    const cellSecondCol = worksheet[cellRefSecondCol];
-    
-                                    const result = `Found in ${file}, Row: ${rowNum + 1}, Value: ${cellSecondCol ? cellSecondCol.v : 'N/A'}`;
-                                    displayResult(result);
-                                    matchFound = true;
-                                    break; // Exit the loop after finding the first match
-                                }
-                            }
-                            */
-                            /*for (let rowNum = range.s.r; rowNum <= range.e.r; rowNum++) {
-                                for (let colNum = range.s.c; colNum <= range.e.c; colNum++) {
-                                    const cellAddress = { r: rowNum, c: colNum };
-                                    const cellRef = XLSX.utils.encode_cell(cellAddress);
-                                    const cell = worksheet[cellRef];
-    
-                                    if (cell && cell.v.toLowerCase() === searchQuery) {
-                                        const result = `ProviderOne ID was found. $(colNum)`;
-                                        displayResult(result);
-                                        bFound = true;
-                                        break;
-                                    }
-                                }
-                            }
-                            */
                             for (let rowNum = range.s.r; rowNum <= range.e.r; rowNum++) {
                                 
                                 const cellAddress = { r: rowNum, c: 0 };
                                 const cellRef = XLSX.utils.encode_cell(cellAddress);
                                 const cell = worksheet[cellRef];
                                     
-                                if (cell && cell.v.toLowerCase() + `wa` === searchQuery) {
+                                if (cell && cell.v.toLowerCase() === searchQuery) {
                                     const cellAddressRest = {r: rowNum, c: 1};
                                     const cellRefRest = XLSX.utils.encode_cell(cellAddressRest);
                                     const cellRest = worksheet[cellRefRest];
