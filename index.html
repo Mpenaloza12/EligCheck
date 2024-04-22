@@ -65,7 +65,7 @@
                                     const cell = worksheet[cellRef];
     
                                     if (cell && cell.v.toLowerCase() === searchQuery) {
-                                        const result = `ProviderOne ID was found.`;
+                                        const result = `ProviderOne ID was found. $(colNum)`;
                                         displayResult(result);
                                         bFound = true;
                                         break;
