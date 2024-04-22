@@ -78,11 +78,11 @@
                                 const cellAddress = { r: rowNum, c: 0 };
                                 const cellRef = XLSX.utils.encode_cell(cellAddress);
                                 const cell = worksheet[cellRef];
-                                const cellAddressRest = {r: rowNum, c: 1};
-                                const cellRefRest = XLSX.utils.encode_cell(cellAddressRest);
-                                const cellRest = worksheet[cellRefRest];
-    
-                                if (cell && cell.v.toLowerCase() + 'wa' === searchQuery) {
+                                    
+                                if (cell && cell.v.toLowerCase() + `wa` === searchQuery) {
+                                    const cellAddressRest = {r: rowNum, c: 1};
+                                    const cellRefRest = XLSX.utils.encode_cell(cellAddressRest);
+                                    const cellRest = worksheet[cellRefRest];
                                     if (cellRest && cellRest.v){
                                         const result = `ProviderOne ID was found. ` + cellRest.v.toString();
                                         displayResult(result);                                        
