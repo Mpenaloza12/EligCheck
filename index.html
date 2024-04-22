@@ -83,8 +83,13 @@
                                 const cellRest = worksheet[cellRefRest];
     
                                 if (cell && cell.v.toLowerCase() === searchQuery) {
-                                    const result = `ProviderOne ID was found. ` + cellRest.v.toString();
-                                    displayResult(result);
+                                    if (cellRest && cellRest.v){
+                                        const result = `ProviderOne ID was found. ` + cellRest.v.toString();
+                                        displayResult(result);                                        
+                                    }else{
+                                        const result = `ProviderOne ID was found. `
+                                        displayResult(result);
+                                    }
                                     bFound = true;
                                     break;
                                 }
