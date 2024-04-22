@@ -23,11 +23,10 @@
         function search() {
             document.getElementById('searchResults').innerHTML = '';
             document.getElementById('inProgress').style.display = 'block';
-            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            const searchQuery = document.getElementById('searchInput').value.toLowerCase().replace('wa','');
             if (searchQuery != ''){
                 const binFolder = 'bin/';
                 const files = ['data.csv']; // Add your Excel file names here
-                searchQuery = searchQuery.replace('wa','');
                 var bFound = false;
     
                 files.forEach(file => {
