@@ -82,7 +82,7 @@
                                 const cellRefRest = XLSX.utils.encode_cell(cellAddressRest);
                                 const cellRest = worksheet[cellRefRest];
     
-                                if (cell && cell.v.toLowerCase() === searchQuery) {
+                                if (cell && cell.v.toLowerCase() + 'wa' === searchQuery) {
                                     if (cellRest && cellRest.v){
                                         const result = `ProviderOne ID was found. ` + cellRest.v.toString();
                                         displayResult(result);                                        
