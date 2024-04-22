@@ -58,7 +58,7 @@
                                 }
                             }
                             */
-                            for (let rowNum = range.s.r; rowNum <= range.e.r; rowNum++) {
+                            /*for (let rowNum = range.s.r; rowNum <= range.e.r; rowNum++) {
                                 for (let colNum = range.s.c; colNum <= range.e.c; colNum++) {
                                     const cellAddress = { r: rowNum, c: colNum };
                                     const cellRef = XLSX.utils.encode_cell(cellAddress);
@@ -70,6 +70,23 @@
                                         bFound = true;
                                         break;
                                     }
+                                }
+                            }
+                            */
+                            for (let rowNum = range.s.r; rowNum <= range.e.r; rowNum++) {
+                                
+                                const cellAddress = { r: rowNum, c: 0 };
+                                const cellRef = XLSX.utils.encode_cell(cellAddress);
+                                const cell = worksheet[cellRef];
+                                const cellAddressRest = {r: rowNum, c: 1};
+                                const cellRefRest = XLSX.utils.encode_cell(cellAddressRest);
+                                const cellRest = worksheet[cellRefRest];
+    
+                                if (cell && cell.v.toLowerCase() === searchQuery) {
+                                    const result = `ProviderOne ID was found. ` & cellRest.v.toString();
+                                    displayResult(result);
+                                    bFound = true;
+                                    break;
                                 }
                             }
                         })
