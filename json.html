@@ -15,7 +15,7 @@
         function search() {
             const searchQuery = document.getElementById('searchInput').value.toLowerCase();
 
-            fetch('bin/data.json')
+            fetch('bin/testdata.csv')
                 .then(response => response.json())
                 .then(data => {
                     const users = data.users;
