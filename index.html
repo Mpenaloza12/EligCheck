@@ -40,6 +40,7 @@
                             const worksheet = workbook.Sheets[sheetName];
                             const range = XLSX.utils.decode_range(worksheet['!ref']);
 
+                            /*
                             for (let rowNum = range.s.r; rowNum <= range.e.r; rowNum++) {
                                 const cellAddressFirstCol = { r: rowNum, c: 0 }; // Assuming first column is index 0
                                 const cellRefFirstCol = XLSX.utils.encode_cell(cellAddressFirstCol);
@@ -56,7 +57,7 @@
                                     break; // Exit the loop after finding the first match
                                 }
                             }
-                            /*
+                            */
                             for (let rowNum = range.s.r; rowNum <= range.e.r; rowNum++) {
                                 for (let colNum = range.s.c; colNum <= range.e.c; colNum++) {
                                     const cellAddress = { r: rowNum, c: colNum };
@@ -71,7 +72,6 @@
                                     }
                                 }
                             }
-                            */
                         })
                         .catch(error => console.error('Error reading file:', error))
                         .finally(() => {
