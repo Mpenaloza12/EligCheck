@@ -41,12 +41,12 @@
                             const range = XLSX.utils.decode_range(worksheet['!ref']);
 
                             for (let rowNum = range.s.r; rowNum <= range.e.r; rowNum++) {
-                                const cellAddressFirstCol = { r: rowNum, c: 1 }; // Assuming first column is index 0
+                                const cellAddressFirstCol = { r: rowNum, c: 0 }; // Assuming first column is index 0
                                 const cellRefFirstCol = XLSX.utils.encode_cell(cellAddressFirstCol);
                                 const cellFirstCol = worksheet[cellRefFirstCol];
                                 if (cellFirstCol && cellFirstCol.v.toLowerCase() === searchQuery) {
                                     // Match found, get data from the second column of the matched row
-                                    const cellAddressSecondCol = { r: rowNum, c: 2 }; // Assuming second column is index 1
+                                    const cellAddressSecondCol = { r: rowNum, c: 1 }; // Assuming second column is index 1
                                     const cellRefSecondCol = XLSX.utils.encode_cell(cellAddressSecondCol);
                                     const cellSecondCol = worksheet[cellRefSecondCol];
     
