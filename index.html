@@ -24,6 +24,7 @@
         function search() {
             document.getElementById('searchResults').innerHTML = '';
             document.getElementById('inProgress').style.display = 'block';
+            document.getElementById('date').style.display = 'none';
             const searchQuery = document.getElementById('searchInput').value.toLowerCase().replace('wa','');
             if (searchQuery != ''){
                 const binFolder = 'bin/';
