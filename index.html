@@ -18,6 +18,7 @@
     <button onclick="search()">Search</button>
     <div id="searchResults"></div>
     <div id="inProgress" style='display: none;'><p></p>Search in progress...</p> <p>Search may take about 30 seconds to complete</p></div>
+    <div id="date" style='display: none;'></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
     <script>
         function search() {
@@ -75,9 +76,12 @@
 
         function displayResult(result) {
             const resultsContainer = document.getElementById('searchResults');
+            const dateTime = document.getElementById('date');
             const match = `<p style='color: green'>${result}</p><p>This response only signifies that the ProviderOne ID you provided appears in PFP's database of eligible HCA clients. This response does <b>NOT</b> guarantee a client's eligibility for a particular service, nor does it guarantee payment from PFP for the after-hours trip.</p>`;
             resultsContainer.innerHTML += match;
+            dateTime.innerHtml += new Date();
             document.getElementById('inProgress').style.display = 'none';
+            document.getElementById('date').style.display = 'none';
         }
 
         function displayNoMatch() {
