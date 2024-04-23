@@ -24,6 +24,7 @@
             document.getElementById('searchResults').innerHTML = '';
             document.getElementById('inProgress').style.display = 'block';
             const searchQuery = document.getElementById('searchInput').value.toLowerCase().replace('wa','');
+            const cDate = new Date();
             if (searchQuery != ''){
                 const binFolder = 'bin/';
                 const files = ['data.csv']; // Add your Excel file names here
@@ -75,14 +76,14 @@
 
         function displayResult(result) {
             const resultsContainer = document.getElementById('searchResults');
-            const match = `<p style='color: green'>${result}</p><p>This response only signifies that the ProviderOne ID you provided appears in PFP's database of eligible HCA clients. This response does <b>NOT</b> guarantee a client's eligibility for a particular service, nor does it guarantee payment from PFP for the after-hours trip.</p>`;
+            const match = `<p style='color: green'>${result}</p><p>This response only signifies that the ProviderOne ID you provided appears in PFP's database of eligible HCA clients. This response does <b>NOT</b> guarantee a client's eligibility for a particular service, nor does it guarantee payment from PFP for the after-hours trip.</p>cDate<p></p?`;
             resultsContainer.innerHTML += match;
             document.getElementById('inProgress').style.display = 'none';
         }
 
         function displayNoMatch() {
             const resultsContainer = document.getElementById('searchResults');
-            resultsContainer.innerHTML = '<p style="color: red">ProviderOne ID was <b>NOT</b> found.</p>';
+            resultsContainer.innerHTML = '<p style="color: red">ProviderOne ID was <b>NOT</b> found.</p><p>cDate</p>';
             document.getElementById('inProgress').style.display = 'none';
         }
     </script>
