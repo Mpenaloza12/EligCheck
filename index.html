@@ -79,6 +79,7 @@
             const dateTime = document.getElementById('date');
             const match = `<p style='color: green'>${result}</p><p>This response only signifies that the ProviderOne ID you provided appears in PFP's database of eligible HCA clients. This response does <b>NOT</b> guarantee a client's eligibility for a particular service, nor does it guarantee payment from PFP for the after-hours trip.</p>`;
             const cDate = new Date();
+            const curDate = `<p>${cDate}</p>
             resultsContainer.innerHTML += match;
             dateTime.innerHtml += cDate;
             document.getElementById('inProgress').style.display = 'none';
