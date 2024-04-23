@@ -76,7 +76,7 @@
         function displayResult(result) {
             const resultsContainer = document.getElementById('searchResults');
             const cDate = new Date();
-            const match = `<p style='color: green'>${result}</p><p>This response only signifies that the ProviderOne ID you provided appears in PFP's database of eligible HCA clients. This response does <b>NOT</b> guarantee a client's eligibility for a particular service, nor does it guarantee payment from PFP for the after-hours trip.</p><p>${cDate}</p>`;
+            const match = `<p style='color: green'>${result}</p><p>This response only signifies that the ProviderOne ID you provided appears in PFP's database of eligible HCA clients. This response does <b>NOT</b> guarantee a client's eligibility for a particular service, nor does it guarantee payment from PFP for the after-hours trip.</p><p>`cDate`</p>`;
             resultsContainer.innerHTML += match;
             document.getElementById('inProgress').style.display = 'none';
         }
@@ -84,7 +84,7 @@
         function displayNoMatch() {
             const resultsContainer = document.getElementById('searchResults');
             const cDate = new Date();
-            resultsContainer.innerHTML = '<p style="color: red">ProviderOne ID was <b>NOT</b> found.</p> <p>${cDate}</>p';
+            resultsContainer.innerHTML = '<p style="color: red">ProviderOne ID was <b>NOT</b> found.</p> <p>`cDate`</>p';
             document.getElementById('inProgress').style.display = 'none';
         }
     </script>
